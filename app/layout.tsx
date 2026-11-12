@@ -7,12 +7,13 @@ import Navbar from "@/components/Navbar";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  variable: "--font-sans",
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
+  display: "swap",
   variable: "--font-mono",
 });
 
@@ -26,8 +27,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
-      <body style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}>
+    <html lang="en" className={jetbrainsMono.variable} style={{ fontFamily: spaceGrotesk.style.fontFamily }}>
+      <body>
         <Navbar user={user} />
         <main className="max-w-2xl mx-auto px-4 py-8">{children}</main>
       </body>

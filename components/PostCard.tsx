@@ -19,11 +19,11 @@ export default function PostCard({ post, isLoggedIn, currentUserId, showDelete, 
 
   return (
     <article
-      className="feed-item bg-card border border-border flex gap-0 group relative"
-      style={{ animationDelay: `${index * 40}ms` }}
+      className="feed-item group relative flex gap-0 bg-zinc-900/50 border border-zinc-800/60 rounded-sm"
+      style={{ animationDelay: `${index * 45}ms` }}
     >
-      {/* Vote column */}
-      <div className="flex-shrink-0 flex items-center px-3 border-r border-border">
+      {/* Vote */}
+      <div className="flex-shrink-0 flex items-center px-3 border-r border-zinc-800/60">
         <VoteButton
           postId={post.id}
           initialScore={post.score}
@@ -34,50 +34,32 @@ export default function PostCard({ post, isLoggedIn, currentUserId, showDelete, 
 
       {/* Thumbnail */}
       {post.thumbnail && (
-        <div
-          className="flex-shrink-0 self-center mx-3 rounded-sm overflow-hidden bg-[#0d0d0d]"
-          style={{ width: "60px", height: "44px", minWidth: "60px" }}
-        >
+        <div className="flex-shrink-0 self-center ml-3 rounded-sm overflow-hidden bg-zinc-800" style={{ width: 60, height: 44, minWidth: 60 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={post.thumbnail}
-            alt=""
-            style={{ width: "60px", height: "44px", objectFit: "cover", display: "block" }}
-          />
-          {isVideo && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-accent text-[10px]">▶</span>
-            </div>
-          )}
+          <img src={post.thumbnail} alt="" style={{ width: 60, height: 44, objectFit: "cover", display: "block" }} />
         </div>
       )}
 
       {/* Content */}
-      <div className="flex-1 min-w-0 py-3 pr-3" style={{ paddingLeft: post.thumbnail ? "0" : "12px" }}>
+      <div className="flex-1 min-w-0 py-3 px-3">
         <Link
           href={`/post/${post.id}`}
-          className="text-sm font-medium text-[#e0e0e0] hover:text-accent transition-colors line-clamp-2 leading-snug block"
-          style={{ letterSpacing: "-0.01em" }}
+          className="text-sm font-medium text-zinc-100 hover:text-[#00e5ff] transition-colors line-clamp-2 leading-snug block"
         >
           {post.title}
         </Link>
-        <div className="mt-1.5 flex items-center gap-2 text-[11px] text-muted flex-wrap font-mono">
-          <a
-            href={post.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#555] hover:text-accent transition-colors"
-          >
+        <div className="mt-1.5 flex items-center gap-2 text-zinc-500 flex-wrap" style={{ fontSize: 11, fontFamily: "var(--font-mono)" }}>
+          <a href={post.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#00e5ff] transition-colors">
             {getDomain(post.url)}
           </a>
-          <span className="text-[#2a2a2a]">·</span>
+          <span className="text-zinc-700">·</span>
           <span>{username}</span>
-          <span className="text-[#2a2a2a]">·</span>
+          <span className="text-zinc-700">·</span>
           <span>{timeAgo(post.created_at)}</span>
           {isVideo && (
             <>
-              <span className="text-[#2a2a2a]">·</span>
-              <span className="text-accent" style={{ fontSize: "10px" }}>video</span>
+              <span className="text-zinc-700">·</span>
+              <span style={{ color: "#00e5ff", fontSize: 10 }}>video</span>
             </>
           )}
         </div>

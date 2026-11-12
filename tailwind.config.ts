@@ -14,11 +14,7 @@ const config: Config = {
         border: "#1f1f1f",
         accent: "#00e5ff",
         "accent-dim": "#00b8cc",
-        muted: "#555555",
-      },
-      fontFamily: {
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        "accent-hot": "#ff4444",
       },
     },
   },

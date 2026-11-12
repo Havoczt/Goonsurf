@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
 
 interface Props {
   postId: string;
@@ -20,18 +19,11 @@ export default function VoteButton({ postId, initialScore, initialVote, isLogged
   async function cast(value: 1 | -1) {
     if (!isLoggedIn) { router.push("/login"); return; }
     if (loading) return;
-
     const prev = vote;
     const prevScore = score;
-    if (vote === value) {
-      setVote(null);
-      setScore(score - value);
-    } else {
-      setScore(score + value - (vote ?? 0));
-      setVote(value);
-    }
+    if (vote === value) { setVote(null); setScore(score - value); }
+    else { setScore(score + value - (vote ?? 0)); setVote(value); }
     setLoading(true);
-
     try {
       const res = await fetch("/api/vote", {
         method: "POST",
@@ -42,11 +34,8 @@ export default function VoteButton({ postId, initialScore, initialVote, isLogged
       const data = await res.json();
       setVote(data.user_vote);
     } catch {
-      setVote(prev);
-      setScore(prevScore);
-    } finally {
-      setLoading(false);
-    }
+      setVote(prev); setScore(prevScore);
+    } finally { setLoading(false); }
   }
 
   return (
@@ -54,31 +43,20 @@ export default function VoteButton({ postId, initialScore, initialVote, isLogged
       <button
         onClick={() => cast(1)}
         disabled={loading}
-        className={cn(
-          "text-[11px] transition-colors leading-none",
-          vote === 1 ? "text-accent" : "text-[#333] hover:text-accent"
-        )}
         aria-label="upvote"
-      >
-        ▲
-      </button>
-      <span
-        className="font-mono leading-none tabular-nums"
-        style={{ fontSize: "11px", color: vote ? "#00e5ff" : "#555" }}
-      >
+        style={{ fontSize: 11, color: vote === 1 ? "#00e5ff" : "#3f3f3f", transition: "color 0.1s", lineHeight: 1 }}
+        className="hover:!text-[#00e5ff]"
+      >▲</button>
+      <span style={{ fontSize: 11, fontFamily: "var(--font-mono)", color: vote ? "#00e5ff" : "#555", lineHeight: 1 }}>
         {score}
       </span>
       <button
         onClick={() => cast(-1)}
         disabled={loading}
-        className={cn(
-          "text-[11px] transition-colors leading-none",
-          vote === -1 ? "text-[#ff4444]" : "text-[#333] hover:text-[#666]"
-        )}
         aria-label="downvote"
-      >
-        ▼
-      </button>
+        style={{ fontSize: 11, color: vote === -1 ? "#ff4444" : "#3f3f3f", transition: "color 0.1s", lineHeight: 1 }}
+        className="hover:!text-zinc-400"
+      >▼</button>
     </div>
   );
 }

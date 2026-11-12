@@ -7,14 +7,15 @@
 
   body {
     background-color: #080808;
-    color: #c8c8c8;
+    color: #d0d0d0;
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
-  ::selection { background: #00e5ff22; color: #fff; }
+  ::selection { background: #00e5ff30; color: #fff; }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: #080808; }
-  ::-webkit-scrollbar-thumb { background: #222; }
+  ::-webkit-scrollbar-thumb { background: #2a2a2a; }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -26,7 +27,7 @@
 
 @layer components {
   .input {
-    @apply w-full bg-[#0d0d0d] border border-border rounded px-3 py-2 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors;
+    @apply w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors;
   }
 
   .btn-primary {
@@ -43,6 +44,7 @@
     border-left: 2px solid transparent;
     transition: border-left-color 0.12s ease;
   }
+
   .feed-item:hover {
     border-left-color: #00e5ff;
   }
