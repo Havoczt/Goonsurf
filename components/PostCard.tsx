@@ -19,17 +19,8 @@ export default function PostCard({ post, isLoggedIn, currentUserId, showDelete, 
 
   return (
     <article
-      className="feed-item bg-card border border-border flex gap-0 hover:border-[#2a2a2a] group relative transition-[border-color,transform] hover:-translate-y-px"
-      style={{
-        animationDelay: `${index * 40}ms`,
-        borderLeft: "2px solid transparent",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.borderLeftColor = "#00e5ff";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.borderLeftColor = "transparent";
-      }}
+      className="feed-item bg-card border border-border flex gap-0 group relative"
+      style={{ animationDelay: `${index * 40}ms` }}
     >
       {/* Vote column */}
       <div className="flex-shrink-0 flex items-center px-3 border-r border-border">

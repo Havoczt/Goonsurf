@@ -49,5 +49,11 @@
   .feed-item {
     opacity: 0;
     animation: slide-up 0.25s ease forwards;
+    border-left: 2px solid transparent;
+    transition: border-left-color 0.15s ease, transform 0.15s ease;
+  }
+  .feed-item:hover {
+    border-left-color: #00e5ff;
+    transform: translateY(-1px);
   }
 }
