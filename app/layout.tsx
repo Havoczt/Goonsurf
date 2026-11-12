@@ -14,15 +14,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
 
   return (
     <html lang="en">
       <body>
         <Navbar user={user} />
-        <main className="max-w-2xl mx-auto px-4 py-6">{children}</main>
+        <main className="max-w-2xl mx-auto px-4 py-8">{children}</main>
       </body>
     </html>
   );

@@ -1,40 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
+
   body {
-    background-color: #0f0f0f;
-    color: #e4e4e7;
-    font-family: ui-sans-serif, system-ui, sans-serif;
+    background-color: #080808;
+    color: #c8c8c8;
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
+
   ::selection {
-    background: #7c3aed40;
+    background: #00e5ff22;
+    color: #fff;
   }
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #0f0f0f;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #2a2a2a;
-    border-radius: 3px;
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #080808; }
+  ::-webkit-scrollbar-thumb { background: #222; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
 @layer components {
   .input {
-    @apply w-full bg-card border border-border rounded px-3 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-accent transition-colors;
+    @apply w-full bg-[#0d0d0d] border border-border rounded-sm px-3 py-2 text-sm text-white placeholder-muted focus:outline-none focus:border-accent transition-colors;
   }
+
   .btn-primary {
-    @apply bg-accent hover:bg-violet-700 text-white text-sm font-medium px-4 py-2 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-accent hover:bg-accent-dim text-black text-sm font-semibold px-4 py-2 rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed;
+    letter-spacing: -0.01em;
   }
+
   .btn-ghost {
-    @apply text-zinc-400 hover:text-white text-sm transition-colors;
+    @apply text-muted hover:text-white text-sm transition-colors;
+  }
+
+  /* staggered feed animation */
+  .feed-item {
+    opacity: 0;
+    animation: slide-up 0.25s ease forwards;
   }
 }

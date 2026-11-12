@@ -13,30 +13,27 @@ export default async function HomePage({
   searchParams: Promise<{ sort?: string }>;
 }) {
   const { sort = "hot" } = await searchParams;
-  const feedSort: FeedSort = SORTS.includes(sort as FeedSort)
-    ? (sort as FeedSort)
-    : "hot";
+  const feedSort: FeedSort = SORTS.includes(sort as FeedSort) ? (sort as FeedSort) : "hot";
 
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+  const { data: { user } } = await supabase.auth.getUser();
   const posts = await getPosts(feedSort, user?.id).catch(() => []);
 
   return (
     <div>
       {/* Sort tabs */}
-      <div className="flex gap-1 mb-4">
+      <div className="flex gap-0 mb-6 border-b border-border">
         {SORTS.map((tab) => (
           <Link
             key={tab}
             href={`/?sort=${tab}`}
-            className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-              feedSort === tab
-                ? "bg-accent text-white"
-                : "text-zinc-500 hover:text-white"
-            }`}
+            className="relative px-4 py-2 text-xs font-mono transition-colors"
+            style={{
+              color: feedSort === tab ? "#00e5ff" : "#444",
+              borderBottom: feedSort === tab ? "1px solid #00e5ff" : "1px solid transparent",
+              marginBottom: "-1px",
+              letterSpacing: "0.08em",
+            }}
           >
             {tab}
           </Link>
@@ -45,22 +42,29 @@ export default async function HomePage({
 
       {/* Feed */}
       {posts.length === 0 ? (
-        <div className="text-center text-zinc-500 py-20">
-          <p className="text-lg mb-2">nothing here yet</p>
+        <div className="py-20 text-center">
+          <p className="text-muted text-sm font-mono mb-3">// nothing here yet</p>
           {user ? (
-            <Link href="/submit" className="text-accent hover:underline text-sm">
-              be the first to post →
+            <Link href="/submit" className="text-accent hover:underline text-xs font-mono">
+              submit the first link →
             </Link>
           ) : (
-            <Link href="/signup" className="text-accent hover:underline text-sm">
+            <Link href="/signup" className="text-accent hover:underline text-xs font-mono">
               sign up to post →
             </Link>
           )}
         </div>
       ) : (
-        <div className="flex flex-col gap-2">
-          {posts.map((post) => (
-            <PostCard key={post.id} post={post} isLoggedIn={!!user} currentUserId={user?.id} showDelete />
+        <div className="flex flex-col gap-px">
+          {posts.map((post, i) => (
+            <PostCard
+              key={post.id}
+              post={post}
+              isLoggedIn={!!user}
+              currentUserId={user?.id}
+              showDelete
+              index={i}
+            />
           ))}
         </div>
       )}

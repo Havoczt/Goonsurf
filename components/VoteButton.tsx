@@ -11,25 +11,16 @@ interface Props {
   isLoggedIn: boolean;
 }
 
-export default function VoteButton({
-  postId,
-  initialScore,
-  initialVote,
-  isLoggedIn,
-}: Props) {
+export default function VoteButton({ postId, initialScore, initialVote, isLoggedIn }: Props) {
   const [score, setScore] = useState(initialScore);
   const [vote, setVote] = useState<1 | -1 | null>(initialVote);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   async function cast(value: 1 | -1) {
-    if (!isLoggedIn) {
-      router.push("/login");
-      return;
-    }
+    if (!isLoggedIn) { router.push("/login"); return; }
     if (loading) return;
 
-    // Optimistic
     const prev = vote;
     const prevScore = score;
     if (vote === value) {
@@ -59,25 +50,30 @@ export default function VoteButton({
   }
 
   return (
-    <div className="flex flex-col items-center gap-0.5">
+    <div className="flex flex-col items-center gap-1">
       <button
         onClick={() => cast(1)}
         disabled={loading}
         className={cn(
-          "text-xs transition-colors px-1",
-          vote === 1 ? "text-accent-hot" : "text-zinc-500 hover:text-white"
+          "text-[11px] transition-colors leading-none",
+          vote === 1 ? "text-accent" : "text-[#333] hover:text-accent"
         )}
         aria-label="upvote"
       >
         ▲
       </button>
-      <span className="text-xs font-mono text-zinc-400 leading-none">{score}</span>
+      <span
+        className="font-mono leading-none tabular-nums"
+        style={{ fontSize: "11px", color: vote ? "#00e5ff" : "#555" }}
+      >
+        {score}
+      </span>
       <button
         onClick={() => cast(-1)}
         disabled={loading}
         className={cn(
-          "text-xs transition-colors px-1",
-          vote === -1 ? "text-blue-400" : "text-zinc-600 hover:text-zinc-400"
+          "text-[11px] transition-colors leading-none",
+          vote === -1 ? "text-[#ff4444]" : "text-[#333] hover:text-[#666]"
         )}
         aria-label="downvote"
       >
