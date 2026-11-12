@@ -10,24 +10,15 @@ const config: Config = {
     extend: {
       colors: {
         surface: "#080808",
-        card: "#101010",
-        border: "#1c1c1c",
+        card: "#111111",
+        border: "#1f1f1f",
         accent: "#00e5ff",
         "accent-dim": "#00b8cc",
-        muted: "#444444",
+        muted: "#555555",
       },
       fontFamily: {
-        sans: ["Space Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
-      },
-      keyframes: {
-        "slide-up": {
-          "0%": { opacity: "0", transform: "translateY(10px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-      },
-      animation: {
-        "slide-up": "slide-up 0.3s ease forwards",
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
     },
   },
