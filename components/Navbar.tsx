@@ -4,28 +4,34 @@ import SignOutButton from "./SignOutButton";
 
 export default function Navbar({ user }: { user: User | null }) {
   return (
-    <nav className="border-b border-zinc-800 sticky top-0 z-50 backdrop-blur-sm" style={{ backgroundColor: "rgba(8,8,8,0.95)" }}>
-      <div className="max-w-2xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
+    <nav style={{
+      position: "sticky", top: 0, zIndex: 50,
+      background: "rgba(10,10,10,0.92)", backdropFilter: "blur(12px)",
+      borderBottom: "1px solid #27272a",
+    }}>
+      <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 16px", height: 48, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
 
-        <Link href="/" className="text-sm font-medium shrink-0 tracking-widest transition-colors hover:text-white" style={{ fontFamily: "var(--font-mono)", color: "#00e5ff", letterSpacing: "0.18em" }}>
+        <Link href="/" style={{ fontFamily: "var(--font-mono-loaded, monospace)", color: "#00e5ff", fontWeight: 500, fontSize: 13, letterSpacing: "0.18em", textDecoration: "none" }}>
           GOONSURF
         </Link>
 
-        <div className="flex items-center gap-3">
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           {user ? (
             <>
-              <span className="text-zinc-500 text-xs hidden sm:block truncate max-w-[120px]" style={{ fontFamily: "var(--font-mono)" }}>
+              <span style={{ fontFamily: "var(--font-mono-loaded, monospace)", color: "#52525b", fontSize: 12 }}>
                 {user.user_metadata?.username ?? user.email?.split("@")[0]}
               </span>
-              <Link href="/submit" className="shrink-0 text-xs font-bold text-black px-3 py-1.5 rounded transition-colors" style={{ backgroundColor: "#00e5ff" }}>
+              <Link href="/submit" className="gs-btn" style={{ padding: "6px 14px", fontSize: 12 }}>
                 + submit
               </Link>
               <SignOutButton />
             </>
           ) : (
             <>
-              <Link href="/login" className="text-zinc-500 hover:text-white text-xs transition-colors">log in</Link>
-              <Link href="/signup" className="shrink-0 text-xs font-bold text-black px-3 py-1.5 rounded transition-colors" style={{ backgroundColor: "#00e5ff" }}>
+              <Link href="/login" style={{ color: "#71717a", fontSize: 13, textDecoration: "none", transition: "color 0.15s" }}>
+                log in
+              </Link>
+              <Link href="/signup" className="gs-btn" style={{ padding: "6px 14px", fontSize: 12 }}>
                 sign up
               </Link>
             </>

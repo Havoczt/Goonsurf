@@ -18,50 +18,36 @@ export default function PostCard({ post, isLoggedIn, currentUserId, showDelete, 
   const isOwner = showDelete && currentUserId === post.user_id;
 
   return (
-    <article
-      className="feed-item group relative flex gap-0 bg-zinc-900/50 border border-zinc-800/60 rounded-sm"
-      style={{ animationDelay: `${index * 45}ms` }}
-    >
-      {/* Vote */}
-      <div className="flex-shrink-0 flex items-center px-3 border-r border-zinc-800/60">
-        <VoteButton
-          postId={post.id}
-          initialScore={post.score}
-          initialVote={post.user_vote ?? null}
-          isLoggedIn={isLoggedIn}
-        />
+    <article className="gs-card gs-anim" style={{ animationDelay: `${index * 40}ms` }}>
+
+      {/* Vote column */}
+      <div style={{ display: "flex", alignItems: "center", padding: "0 12px", borderRight: "1px solid #27272a", flexShrink: 0 }}>
+        <VoteButton postId={post.id} initialScore={post.score} initialVote={post.user_vote ?? null} isLoggedIn={isLoggedIn} />
       </div>
 
       {/* Thumbnail */}
       {post.thumbnail && (
-        <div className="flex-shrink-0 self-center ml-3 rounded-sm overflow-hidden bg-zinc-800" style={{ width: 60, height: 44, minWidth: 60 }}>
+        <div style={{ width: 72, minWidth: 72, alignSelf: "center", margin: "0 12px", borderRadius: 6, overflow: "hidden", background: "#18181b", flexShrink: 0 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={post.thumbnail} alt="" style={{ width: 60, height: 44, objectFit: "cover", display: "block" }} />
+          <img src={post.thumbnail} alt="" style={{ width: 72, height: 52, objectFit: "cover", display: "block" }} />
         </div>
       )}
 
       {/* Content */}
-      <div className="flex-1 min-w-0 py-3 px-3">
-        <Link
-          href={`/post/${post.id}`}
-          className="text-sm font-medium text-zinc-100 hover:text-[#00e5ff] transition-colors line-clamp-2 leading-snug block"
-        >
+      <div style={{ flex: 1, minWidth: 0, padding: "12px 12px 12px 0", paddingLeft: post.thumbnail ? 0 : 12 }}>
+        <Link href={`/post/${post.id}`} style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#e4e4e7", lineHeight: 1.4, textDecoration: "none" }}
+          className="hover:text-cyan-400 transition-colors line-clamp-2">
           {post.title}
         </Link>
-        <div className="mt-1.5 flex items-center gap-2 text-zinc-500 flex-wrap" style={{ fontSize: 11, fontFamily: "var(--font-mono)" }}>
-          <a href={post.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#00e5ff] transition-colors">
+        <div style={{ marginTop: 6, display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#52525b", flexWrap: "wrap", fontFamily: "var(--font-mono-loaded, monospace)" }}>
+          <a href={post.url} target="_blank" rel="noopener noreferrer" style={{ color: "#52525b", textDecoration: "none" }} className="hover:text-cyan-400 transition-colors">
             {getDomain(post.url)}
           </a>
-          <span className="text-zinc-700">·</span>
+          <span style={{ color: "#3f3f46" }}>·</span>
           <span>{username}</span>
-          <span className="text-zinc-700">·</span>
+          <span style={{ color: "#3f3f46" }}>·</span>
           <span>{timeAgo(post.created_at)}</span>
-          {isVideo && (
-            <>
-              <span className="text-zinc-700">·</span>
-              <span style={{ color: "#00e5ff", fontSize: 10 }}>video</span>
-            </>
-          )}
+          {isVideo && <><span style={{ color: "#3f3f46" }}>·</span><span style={{ color: "#00e5ff", fontSize: 10, fontWeight: 600 }}>VIDEO</span></>}
         </div>
       </div>
 

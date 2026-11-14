@@ -6,18 +6,7 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
-    extend: {
-      colors: {
-        surface: "#080808",
-        card: "#111111",
-        border: "#1f1f1f",
-        accent: "#00e5ff",
-        "accent-dim": "#00b8cc",
-        "accent-hot": "#ff4444",
-      },
-    },
-  },
+  theme: { extend: {} },
   plugins: [],
 };
 

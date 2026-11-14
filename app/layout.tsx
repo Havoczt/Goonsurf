@@ -1,21 +1,11 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { createClient } from "@/lib/supabase/server";
 import Navbar from "@/components/Navbar";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-  variable: "--font-mono",
-});
+const inter = Inter({ subsets: ["latin"], display: "swap" });
+const mono  = JetBrains_Mono({ subsets: ["latin"], weight: ["400","500"], display: "swap", variable: "--font-mono-loaded" });
 
 export const metadata: Metadata = {
   title: "goonsurf",
@@ -27,10 +17,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <html lang="en" className={jetbrainsMono.variable} style={{ fontFamily: spaceGrotesk.style.fontFamily }}>
+    <html lang="en" className={`${inter.className} ${mono.variable}`}>
       <body>
         <Navbar user={user} />
-        <main className="max-w-2xl mx-auto px-4 py-8">{children}</main>
+        <main style={{ maxWidth: 720, margin: "0 auto", padding: "32px 16px" }}>
+          {children}
+        </main>
       </body>
     </html>
   );

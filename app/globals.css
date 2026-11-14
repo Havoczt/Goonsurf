@@ -3,54 +3,114 @@
 @tailwind utilities;
 
 @layer base {
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background-color: #080808;
-    color: #d0d0d0;
-    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    background: #0a0a0a;
+    color: #d4d4d4;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    line-height: 1.5;
   }
 
-  ::selection { background: #00e5ff30; color: #fff; }
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: #00e5ff25; color: #fff; }
   ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: #080808; }
-  ::-webkit-scrollbar-thumb { background: #2a2a2a; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      transition-duration: 0.01ms !important;
-    }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
 }
 
-@layer components {
-  .input {
-    @apply w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors;
-  }
-
-  .btn-primary {
-    @apply bg-accent hover:bg-accent-dim text-black text-sm font-bold px-5 py-2 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed;
-  }
-
-  .btn-ghost {
-    @apply text-zinc-500 hover:text-white text-sm transition-colors;
-  }
-
-  .feed-item {
-    opacity: 0;
-    animation: slide-up 0.2s ease forwards;
-    border-left: 2px solid transparent;
-    transition: border-left-color 0.12s ease;
-  }
-
-  .feed-item:hover {
-    border-left-color: #00e5ff;
-  }
+/* ── Design tokens ─────────────────────────── */
+:root {
+  --bg:       #0a0a0a;
+  --surface:  #111113;
+  --elevated: #18181b;
+  --border:   #27272a;
+  --border2:  #3f3f46;
+  --text:     #d4d4d8;
+  --muted:    #71717a;
+  --dim:      #3f3f46;
+  --cyan:     #00e5ff;
+  --cyan-dim: #00b3c8;
+  --red:      #ef4444;
+  --mono:     "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 }
 
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(8px); }
+/* ── Reusable classes ──────────────────────── */
+.gs-input {
+  width: 100%;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+}
+.gs-input::placeholder { color: var(--dim); }
+.gs-input:focus { border-color: var(--cyan); }
+
+.gs-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--cyan);
+  color: #000;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+}
+.gs-btn:hover { background: var(--cyan-dim); }
+.gs-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.gs-btn-ghost {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s;
+  font-family: inherit;
+}
+.gs-btn-ghost:hover { color: #fff; }
+
+/* ── Feed card ─────────────────────────────── */
+.gs-card {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-left-color 0.12s, background 0.12s;
+  position: relative;
+}
+.gs-card:hover {
+  border-left-color: var(--cyan);
+  background: var(--elevated);
+}
+
+/* ── Slide-up animation ────────────────────── */
+.gs-anim {
+  opacity: 0;
+  animation: slideUp 0.22s ease forwards;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
